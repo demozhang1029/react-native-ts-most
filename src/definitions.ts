@@ -10,7 +10,8 @@ export interface App {
 }
 
 export interface User {
-    name: string
+    username: string
+    sessionToken: string
 }
 
 export interface UserProfile {
@@ -46,6 +47,14 @@ export interface DraftProduct {
 
 export type Products = Array<Product>
 
+export type PublishProducts = {
+    currentImageUrl: string
+}
+
+export type HomeProducts = {
+    products: Products
+}
+
 // ACTION CREATORS
 
 // ACTIONS
@@ -59,9 +68,40 @@ export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile
 }
 
+export interface ProductsAction extends GeneralAction {
+    payload?: User
+    success?: Products
+    error?: string
+}
+
+export interface FetchHomeProductsAction extends GeneralAction {
+    payload?: Products
+}
+
+export interface UploadImageAction extends GeneralAction {
+    payload?: {
+        user: User,
+        fileData: string
+    }
+}
+export interface UploadImageSucAction extends GeneralAction {
+    payload?: {
+        url: string,
+    }
+}
+export interface PublishProductAction extends GeneralAction {
+    payload?: {
+        user: User,
+        draftProduct: DraftProduct
+    }
+}
+
 // STATES
 export type AppState = App
 export type UserState = User
+export type ProductsState = Products
+export type HomeProductsState = HomeProducts
+export type PublishProductsState = PublishProducts
 
 export interface RootState {
     user?: UserState

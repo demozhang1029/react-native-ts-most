@@ -2,7 +2,8 @@ import * as D from '../../definitions'
 import * as Redux from 'redux'
 
 const initialState: D.UserState = {
-    name: '',
+    username: '',
+    sessionToken: '',
 }
 
 const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.UserAction): D.UserState => {
@@ -12,6 +13,14 @@ const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.U
             return {
                 ...state,
                 ...action.payload,
+            }
+        case 'USER_LOGOUT_SUC':
+            return {
+                ...initialState
+            }
+        case 'USER_REGISTER_SUC':
+            return {
+                ...initialState
             }
         default:
     }
