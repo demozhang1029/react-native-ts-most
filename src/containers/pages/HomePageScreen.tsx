@@ -23,6 +23,8 @@ class HomePageScreen extends React.Component<DispatchProp<{}>, {}> {
 							return <Product
 								title={product.name}
 								img={product.img}
+								price={product.price}
+								owner={product.owner}
 								key={index}
 							/>
 						})
