@@ -11,3 +11,9 @@ export const fetchJson = (url, option) => fetch(url, {
     }
     throw response
   })
+
+export const headerWithSessionToken = (sessionToken: string): Headers => {
+    let header = new Headers()
+    header.append('sessionToken', sessionToken)
+    return header
+}

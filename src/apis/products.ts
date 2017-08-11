@@ -1,48 +1,29 @@
-import * as D from '../definitions'
+import {
+    Products,
+    DraftProduct
+} from '../definitions'
+import {
+    fetchJson,
+    headerWithSessionToken
+} from './utils'
 
-export const boughtProducts = (sessionToken: string): Promise<D.Products> => {
-    let header = new Headers()
-    header.append('sessionToken', sessionToken)
-
-    const response = fetch('http://secondhand.leanapp.cn/products/bought', {
+export const boughtProducts = (sessionToken: string): Promise<Products> => {
+    return fetchJson('http://secondhand.leanapp.cn/products/bought', {
         method: 'GET',
-        headers: header,
-    })
-
-    return response.then((Response) => {
-        if (Response.status === 200) {
-            return Response.json()
-        }
+        headers: headerWithSessionToken(sessionToken),
     })
 }
 
-export const soldProducts = (sessionToken: string): Promise<D.Products> => {
-    let header = new Headers()
-    header.append('sessionToken', sessionToken)
-    const response = fetch('http://secondhand.leanapp.cn/products/owned', {
+export const soldProducts = (sessionToken: string): Promise<Products> => {
+    return fetchJson('http://secondhand.leanapp.cn/products/owned', {
         method: 'GET',
-        headers: header,
-    })
-
-    return response.then((Response) => {
-        if (Response.status === 200) {
-            return Response.json()
-        }
+        headers: headerWithSessionToken(sessionToken),
     })
 }
 
-export const homeProducts = (): Promise<D.Products> => {
-    const response = fetch('http://secondhand.leanapp.cn/products/', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-
-    return response.then((Response) => {
-        if (Response.status === 200) {
-            return Response.json()
-        }
+export const homeProducts = (): Promise<Products> => {
+    return fetchJson('http://secondhand.leanapp.cn/products/', {
+        method: 'GET'
     })
 }
 
@@ -50,36 +31,17 @@ export const uploadImage = (sessionToken: string, fileData: string): Promise<str
     let formData = new FormData()
     formData.append('img', fileData)
 
-    let header = new Headers()
-    header.append('sessionToken', sessionToken)
-
-    const response = fetch('http://secondhand.leanapp.cn/products/upload', {
+    return fetchJson('http://secondhand.leanapp.cn/products/upload', {
         method: 'POST',
         body: formData,
-        headers: header,
-    })
-    return response.then((Response) => {
-        if (Response.status === 200) {
-            return Response.json()
-        }
-        return null
+        headers: headerWithSessionToken(sessionToken),
     })
 }
 
-export const createProduct = (sessionToken: string, draftProduct: D.DraftProduct): Promise<string> => {
-    let header = new Headers()
-    header.append('sessionToken', sessionToken)
-
-    const response = fetch('http://secondhand.leanapp.cn/products/create', {
+export const createProduct = (sessionToken: string, draftProduct: DraftProduct): Promise<string> => {
+    return fetchJson('http://secondhand.leanapp.cn/products/create', {
         method: 'POST',
         body: JSON.stringify(draftProduct),
-        headers: header,
-    })
-
-    return response.then((Response) => {
-        if (Response.status === 200) {
-            return Response.json()
-        }
-        return null
+        headers: headerWithSessionToken(sessionToken),
     })
 }
