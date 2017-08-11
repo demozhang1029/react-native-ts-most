@@ -1,18 +1,20 @@
 import { fromPromise } from 'most'
 import { select, Epic } from 'redux-most'
-
-import * as D from '../../definitions'
+import {
+    FETCH_HOME_PRODUCTS,
+    FETCH_HOME_PRODUCTS_SUC,
+    FETCH_HOME_PRODUCTS_FAIL,
+    GeneralAction,
+    FetchHomeProductsAction,
+    Products,
+} from '../../definitions'
 import { homeProducts } from '../../apis/products'
 
-export const FETCH_HOME_PRODUCTS = 'FETCH_HOME_PRODUCTS '
-export const FETCH_HOME_PRODUCTS_SUC = 'FETCH_HOME_PRODUCTS_SUC'
-export const FETCH_HOME_PRODUCTS_FAIL = 'FETCH_HOME_PRODUCTS_FAIL'
+export const getHomeProducts = (): FetchHomeProductsAction => ({ type: FETCH_HOME_PRODUCTS })
 
-export const getHomeProducts = (): D.FetchHomeProductsAction => ({ type: FETCH_HOME_PRODUCTS })
-
-const fetchHomeProductsEpic: Epic<D.GeneralAction> = (action$) => action$.thru(select(FETCH_HOME_PRODUCTS))
-    .chain((action: D.FetchHomeProductsAction) => fromPromise(homeProducts()))
-    .map((homeProductsRepoonse: null | D.Product[]) => {
+const fetchHomeProductsEpic: Epic<GeneralAction> = (action$) => action$.thru(select(FETCH_HOME_PRODUCTS))
+    .chain((action: FetchHomeProductsAction) => fromPromise(homeProducts()))
+    .map((homeProductsRepoonse: null | Products) => {
         return (
             homeProductsRepoonse
                 ? { type: FETCH_HOME_PRODUCTS_SUC, payload: homeProductsRepoonse }
@@ -20,6 +22,6 @@ const fetchHomeProductsEpic: Epic<D.GeneralAction> = (action$) => action$.thru(s
         )
     })
 
-export const epics: Array<Epic<D.GeneralAction>> = [
+export const epics: Array<Epic<GeneralAction>> = [
     fetchHomeProductsEpic,
 ]

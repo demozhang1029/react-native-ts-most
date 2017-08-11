@@ -1,18 +1,23 @@
-import * as D from '../../definitions'
+import {
+    UPLOAD_IMAGE_SUC,
+    GeneralAction,
+    PublishProductsState,
+    UploadImageSucAction,
+} from '../../definitions'
 import * as Redux from 'redux'
 
-const initialState: D.PublishProductsState = {
-  currentImageUrl: '',
+const initialState: PublishProductsState = {
+    currentImageUrl: '',
 }
 
-const publishProductReducer: Redux.Reducer<D.PublishProductsState> =
-  (state: D.PublishProductsState, action: D.GeneralAction): D.PublishProductsState => {
+const publishProductReducer: Redux.Reducer<PublishProductsState> =
+  (state: PublishProductsState, action: GeneralAction): PublishProductsState => {
     state = state || initialState
     switch (action.type) {
-      case 'UPLOAD_IMAGE_SUC':
+      case UPLOAD_IMAGE_SUC:
         return {
           ...state,
-          currentImageUrl: (action as D.UploadImageSucAction).payload.url,
+          currentImageUrl: (action as UploadImageSucAction).payload.url,
         }
       default:
     }

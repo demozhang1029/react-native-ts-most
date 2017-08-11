@@ -1,16 +1,22 @@
-import * as D from '../../definitions'
+import {
+    FETCH_HOME_PRODUCTS_SUC,
+    HomeProductsState,
+    HomeProducts,
+    Products,
+    GeneralAction,
+} from '../../definitions'
 import * as Redux from 'redux'
 
-const initialState: D.HomeProducts = {
+const initialState: HomeProducts = {
     products: [],
 }
 
-const productReducer: Redux.Reducer<D.HomeProductsState> =
-    (state: D.HomeProductsState, action: D.GeneralAction): D.HomeProductsState => {
+const productReducer: Redux.Reducer<HomeProductsState> =
+    (state: HomeProductsState, action: GeneralAction): HomeProductsState => {
         state = state || initialState
         switch (action.type) {
-            case 'FETCH_HOME_PRODUCTS_SUC':
-                const products = action.payload as D.Product[]
+            case FETCH_HOME_PRODUCTS_SUC:
+                const products = action.payload as Products
                 return {
                     ...state,
                     products,

@@ -1,26 +1,30 @@
 import { fromPromise } from 'most'
 import { select, Epic } from 'redux-most'
-
-import * as D from '../../definitions'
+import {
+    UPLOAD_IMAGE,
+    PUBLISH_PRODUCT,
+    PUBLISH_PRODUCT_SUC,
+    PUBLISH_PRODUCT_FAIL,
+    UPLOAD_IMAGE_SUC,
+    UPLOAD_IMAGE_FAIL,
+    GeneralAction,
+    UploadImageAction,
+    PublishProductAction,
+    User,
+    DraftProduct,
+} from '../../definitions'
 import { uploadImage, createProduct } from '../../apis/products'
 
-export const UPLOAD_IMAGE = 'UPLOAD_IMAGE '
-export const UPLOAD_IMAGE_SUC = 'UPLOAD_IMAGE_SUC'
-export const UPLOAD_IMAGE_FAIL = 'UPLOAD_IMAGE_FAIL'
-export const PUBLISH_PRODUCT = 'PUBLISH_PRODUCT '
-export const PUBLISH_PRODUCT_SUC = 'PUBLISH_PRODUCT_SUC'
-export const PUBLISH_PRODUCT_FAIL = 'PUBLISH_PRODUCT_FAIL'
-
 export const uploadProductImage =
-    (user: D.User, fileData: string): D.UploadImageAction =>
+    (user: User, fileData: string): UploadImageAction =>
         ({ type: UPLOAD_IMAGE, payload: { user, fileData } })
 
 export const publishProduct =
-    (user: D.User, draftProduct: D.DraftProduct): D.PublishProductAction =>
+    (user: User, draftProduct: DraftProduct): PublishProductAction =>
         ({ type: PUBLISH_PRODUCT, payload: { user, draftProduct } })
 
-const uploadProductImageEpic: Epic<D.GeneralAction> = (action$) => action$.thru(select(UPLOAD_IMAGE))
-    .chain((action: D.UploadImageAction) => 
+const uploadProductImageEpic: Epic<GeneralAction> = (action$) => action$.thru(select(UPLOAD_IMAGE))
+    .chain((action: UploadImageAction) =>
         fromPromise(uploadImage(action.payload.user.sessionToken, action.payload.fileData))
     )
     .map((uploadImageResponse: null | string) => {
@@ -31,8 +35,8 @@ const uploadProductImageEpic: Epic<D.GeneralAction> = (action$) => action$.thru(
         )
     })
 
-const publishProductEpic: Epic<D.GeneralAction> = (action$) => action$.thru(select(PUBLISH_PRODUCT))
-    .chain((action: D.PublishProductAction) =>
+const publishProductEpic: Epic<GeneralAction> = (action$) => action$.thru(select(PUBLISH_PRODUCT))
+    .chain((action: PublishProductAction) =>
         fromPromise(createProduct(action.payload.user.sessionToken, action.payload.draftProduct))
     ).map((publishProductResponse: null | string) => {
         return (
@@ -42,7 +46,7 @@ const publishProductEpic: Epic<D.GeneralAction> = (action$) => action$.thru(sele
         )
     })
 
-export const epics: Array<Epic<D.GeneralAction>> = [
+export const epics: Array<Epic<GeneralAction>> = [
     uploadProductImageEpic,
     publishProductEpic,
 ]
