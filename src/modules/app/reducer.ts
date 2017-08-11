@@ -1,12 +1,14 @@
-import * as D from '../../definitions'
+import {
+    AppState,
+} from '../../definitions'
 import * as Redux from 'redux'
 
-const initialState: D.AppState  = {
+const initialState: AppState  = {
     loading: false,
     logined: false,
 }
 
-const appReducer: Redux.Reducer<D.AppState> = (state: D.AppState, action: Redux.Action): D.AppState => {
+const appReducer: Redux.Reducer<AppState> = (state: AppState, action: Redux.Action): AppState => {
     state = state || initialState
     return state
 }
