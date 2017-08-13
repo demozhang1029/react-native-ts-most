@@ -8,18 +8,16 @@ interface HeaderProps {
     onPress?: () => void
 }
 
-export const Header = (props: HeaderProps) => {
-    return (
-        <View style={styles.header}>
-            <TouchableHighlight style={styles.icon} onPress={props.onPress}>
-                {renderIcon(props.closeIcon, props.goBackIcon)}
-            </TouchableHighlight>
-            <Text style={styles.spaceFlex1}/>
-            <Text style={styles.title}>{props.headerContext}</Text>
-            <Text style={styles.spaceFlex2}/>
-        </View>
-    )
-}
+export const Header = (props: HeaderProps) => (
+    <View style={styles.header}>
+        <TouchableHighlight style={styles.icon} onPress={props.onPress}>
+            {renderIcon(props.closeIcon, props.goBackIcon)}
+        </TouchableHighlight>
+        <Text style={styles.spaceFlex1}/>
+        <Text style={styles.title}>{props.headerContext}</Text>
+        <Text style={styles.spaceFlex2}/>
+    </View>
+)
 
 const renderIcon = (closeIcon: boolean, goBackIcon: boolean) => {
     if (closeIcon) {
