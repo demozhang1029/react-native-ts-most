@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import * as t from 'tcomb-form-native'
 const Form = t.form.Form
 import { Header } from './Header'
@@ -58,6 +59,7 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
     }
 
     onSubmit = () => {
+        // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
     }
 
@@ -67,20 +69,22 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
                 <Header closeIcon={true} headerContext="注册" onPress={this.props.onIconClick}/>
                 <Image style={styles.icon} source={require('./images/logo.png')}/>
                 <View style={styles.content}>
-                    <Form
-                        ref="form"
-                        style={styles.form}
-                        type={User}
-                        options={options}
-                        onChange={this.onChange}
-                        value={this.state}
-                    />
+                    <KeyboardAwareView animated={true}>
+                        <Form
+                            ref="form"
+                            style={styles.form}
+                            type={User}
+                            options={options}
+                            onChange={this.onChange}
+                            value={this.state}
+                        />
 
-                    <ButtonWithColor
-                        style={styles.registerButton}
-                        title="注册"
-                        onPress={this.onSubmit}
-                    />
+                        <ButtonWithColor
+                            style={styles.registerButton}
+                            title="注册"
+                            onPress={this.onSubmit}
+                        />
+                    </KeyboardAwareView>
                 </View>
             </View>
         )
@@ -98,13 +102,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     content: {
-        flexDirection: 'column',
-        justifyContent: 'center'
+        marginTop: 20,
     },
     form: {
-        flex: 0.8,
+        flex: 1,
     },
     registerButton: {
-        flex: 0.8,
+        flex: 1,
+        marginTop: 20,
     },
 })

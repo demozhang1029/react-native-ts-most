@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import * as t from 'tcomb-form-native'
 const Form = t.form.Form
 import { Header } from './Header'
@@ -48,6 +49,7 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
     }
 
     onSubmit = () => {
+        // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
     }
 
@@ -60,25 +62,27 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
                 <Header closeIcon={true} headerContext="请登录" onPress={this.props.onIconClick}/>
                 <Image style={styles.icon} source={require('./images/logo.png')}/>
                 <View style={styles.content}>
-                    <Form
-                        ref="form"
-                        style={styles.form}
-                        type={User}
-                        options={options}
-                        onChange={this.onChange}
-                        value={this.state}
-                    />
-                    <View style={styles.loginButtons}>
-                        <ButtonWithColor
-                            title="登陆"
-                            isGreyButton={!isLoginBtnEnabled}
-                            onPress={this.onSubmit}
+                    <KeyboardAwareView>
+                        <Form
+                            ref="form"
+                            style={styles.form}
+                            type={User}
+                            options={options}
+                            onChange={this.onChange}
+                            value={this.state}
                         />
-                        <ButtonWithColor
-                            title="免费注册"
-                            onPress={this.props.goToRegister}
-                        />
-                    </View>
+                        <View style={styles.loginButtons}>
+                            <ButtonWithColor
+                                title="登陆"
+                                isGreyButton={!isLoginBtnEnabled}
+                                onPress={this.onSubmit}
+                            />
+                            <ButtonWithColor
+                                title="免费注册"
+                                onPress={this.props.goToRegister}
+                            />
+                        </View>
+                    </KeyboardAwareView>
                 </View>
             </View>
         )
