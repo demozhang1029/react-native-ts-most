@@ -1,5 +1,4 @@
 import * as Redux from 'redux'
-import * as Navigation from 'react-navigation'
 
 // This file holds our app typings
 
@@ -36,6 +35,14 @@ export interface Product {
     owner?: CreatedUser
     buyer?: CreatedUser
     description: string
+}
+
+export interface ProductDetail {
+	img: string
+	name: string
+	price: string
+	owner: string
+	description: string
 }
 
 export interface DraftProduct {
@@ -132,5 +139,6 @@ export type PublishProductsState = PublishProducts
 export interface RootState {
     user?: UserState
     app?: AppState
+    homeProducts?: HomeProductsState
     nav?: {}
 }

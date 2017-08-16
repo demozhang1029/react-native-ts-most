@@ -7,7 +7,7 @@ import filter from 'redux-storage-decorator-filter'
 import initialState from './initialState'
 import reducers from './reducers'
 import middlewares from './middlewares'
-import { USER_LOGIN_SUC } from '../modules/user/actions'
+import { USER_LOGIN_SUC } from '../definitions'
 
 const storeConfigure = () => {
     const reducer = storage.reducer(combineReducers(reducers))
