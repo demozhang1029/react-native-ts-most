@@ -26,17 +26,20 @@ const renderIcon = (closeIcon: boolean, goBackIcon: boolean) => {
     if (goBackIcon) {
         return <Image style={styles.iconImage} source={require('./images/arrow.png')}/>
     }
-    return null
+    return <View />
 }
 
 const styles = StyleSheet.create({
     header: {
+        flexDirection: 'row',
         height: 44,
         marginTop: 20,
         justifyContent: 'center',
     },
     icon: {
         flex: 1,
+        alignSelf: 'center',
+        paddingLeft: 10,
     },
     iconImage: {
         height: 35,
