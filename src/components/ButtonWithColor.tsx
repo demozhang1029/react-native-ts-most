@@ -10,7 +10,7 @@ export const ButtonWithColor = (props: ButtonWithColorProps) => {
     const buttonColor = props.isGreyButton ? styles.grayButton : styles.yellowButton
     return (
         <View style={[styles.buttonWithColorView, buttonColor, styles.buttonWithColorButton]}>
-            <TouchableHighlight onPress={props.onPress}>
+            <TouchableHighlight onPress={props.onPress} underlayColor={'transparent'}>
                 <Text style={styles.buttonText}>{props.title}</Text>
             </TouchableHighlight>
         </View>
@@ -20,6 +20,7 @@ export const ButtonWithColor = (props: ButtonWithColorProps) => {
 const styles = StyleSheet.create({
     buttonWithColorView: {
         height: 44,
+        width: 200,
         alignItems: 'center',
         justifyContent: 'center',
     },

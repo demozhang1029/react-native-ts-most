@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => (
     <View style={styles.header}>
-        <TouchableHighlight style={styles.icon} onPress={props.onPress}>
+        <TouchableHighlight style={styles.icon} onPress={props.onPress} underlayColor={'transparent'}>
             {renderIcon(props.closeIcon, props.goBackIcon)}
         </TouchableHighlight>
         <Text style={styles.spaceFlex1}/>
