@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, Dimensions } from 'react-native'
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import * as t from 'tcomb-form-native'
 const Form = t.form.Form
@@ -65,50 +65,37 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
 
     render() {
         return (
-            <View style={[styles.loginPopup, ]}>
+            <View>
                 <Header closeIcon={true} headerContext="注册" onPress={this.props.onIconClick}/>
-                <Image style={styles.icon} source={require('./images/logo.png')}/>
-                <View style={styles.content}>
-                    <KeyboardAwareView animated={true}>
-                        <Form
-                            ref="form"
-                            style={styles.form}
-                            type={User}
-                            options={options}
-                            onChange={this.onChange}
-                            value={this.state}
-                        />
-
-                        <ButtonWithColor
-                            style={styles.registerButton}
-                            title="注册"
-                            onPress={this.onSubmit}
-                        />
-                    </KeyboardAwareView>
-                </View>
+                <KeyboardAwareView animated={true}>
+                    <View style={styles.content}>
+                    <Image style={styles.icon} source={require('./images/logo.png')}/>
+                    <Form
+                        ref="form"
+                        type={User}
+                        options={options}
+                        onChange={this.onChange}
+                        value={this.state}
+                    />
+                    <ButtonWithColor
+                        title="注册"
+                        onPress={this.onSubmit}
+                    />
+                    </View>
+                </KeyboardAwareView>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    loginPopup: {
-        marginBottom: 30,
-        alignItems: 'center'
-    },
     icon: {
-        height: 200,
+        height: 150,
         resizeMode: 'contain',
-        alignItems: 'center'
     },
     content: {
-        marginTop: 20,
-    },
-    form: {
-        flex: 1,
-    },
-    registerButton: {
-        flex: 1,
-        marginTop: 20,
-    },
+        height: Dimensions.get('window').height - 64 - 44,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    }
 })
