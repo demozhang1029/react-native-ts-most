@@ -45,7 +45,6 @@ class HomePageScreen extends React.Component<HomePageProps> {
 }
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return {
 		products: _.map(state.homeProducts.products, product => ({
 			img: product.img,
