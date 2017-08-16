@@ -71,6 +71,10 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
         this.props.dispatch(userLogin({username, password}))
     }
 
+    onRegisterUser = (username: string, password: string) => {
+        this.props.dispatch(userRegister({username, password}))
+    }
+
     _renderContent = () => {
         return (
             <View>
@@ -117,7 +121,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                         />
                         : this.state.showRegister
                         ? <RegisterPopup
-                            onSubmit={this.props.dispatch.bind(null, userRegister)}
+                            onSubmit={this.onRegisterUser}
                             isActive={true}
                             onIconClick={this.onRegisterClose}
                         />
