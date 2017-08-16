@@ -10,7 +10,7 @@ import {getHomeProducts} from "../../modules/home/actions";
 
 interface HomePageProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
-	products: D.Product[];
+	products: D.ProductDetail[];
 }
 
 class HomePageScreen extends React.Component<HomePageProps> {
@@ -25,7 +25,7 @@ class HomePageScreen extends React.Component<HomePageProps> {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Header headerContext="精选" goBackIcon={true}/>
+				<Header headerContext="精选"/>
 				<ScrollView style={styles.view}>
 					{
 						this.props.products.map((product, index) => {

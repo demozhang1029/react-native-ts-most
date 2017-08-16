@@ -37,6 +37,14 @@ export interface Product {
     description: string
 }
 
+export interface ProductDetail {
+	img: string
+	name: string
+	price: string
+	owner: string
+	description: string
+}
+
 export interface DraftProduct {
     name: string
     price: string

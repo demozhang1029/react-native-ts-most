@@ -7,10 +7,7 @@ interface ProductProps {
 	title: string;
 	img: string;
 	price: string;
-	owner?: {
-		username: string,
-		objectId: string,
-	};
+	owner?: string;
 }
 
 export const Product = (props: ProductProps) => {
@@ -20,7 +17,7 @@ export const Product = (props: ProductProps) => {
 			<View style={styles.info}>
 				<Text style={styles.text}>{props.title}</Text>
 				<Price price={props.price}/>
-				<User name={props.owner.username}/>
+				<User name={props.owner}/>
 			</View>
 		</View>
 	);
