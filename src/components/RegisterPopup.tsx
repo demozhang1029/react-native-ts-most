@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, View, Image, Dimensions } from 'react-native'
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
+import KeyboardSpace from 'react-native-keyboard-space'
 import * as t from 'tcomb-form-native'
 const Form = t.form.Form
 import { Header } from './Header'
@@ -67,8 +67,7 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
         return (
             <View>
                 <Header closeIcon={true} headerContext="注册" onPress={this.props.onIconClick}/>
-                <KeyboardAwareView animated={true}>
-                    <View style={styles.content}>
+                <View style={styles.content}>
                     <Image style={styles.icon} source={require('./images/logo.png')}/>
                     <Form
                         ref="form"
@@ -81,8 +80,8 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
                         title="注册"
                         onPress={this.onSubmit}
                     />
-                    </View>
-                </KeyboardAwareView>
+                    <KeyboardSpace/>
+                </View>
             </View>
         )
     }
