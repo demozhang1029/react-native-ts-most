@@ -25,11 +25,12 @@ const options = {
     }
 }
 
-interface LoginPopupProps {
+interface LoginPopupProps  {
     onSubmit: (username: string, password: string) => void
     goToRegister: () => void
     onIconClick: () => void
     isActive: boolean
+    onHideTabBar: (tabBarVisible: boolean) => void
 }
 
 interface LoginPopupStates {
@@ -44,13 +45,22 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
         this.state = {}
     }
 
+    componentDidMount() {
+        this.props.onHideTabBar(false)
+    }
+
     onChange = (user: UserForLogin) => {
         this.setState({...user})
     }
 
     onSubmit = () => {
+        this.props.onHideTabBar(true)
         // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
+    }
+
+    onClose = () => {
+        this.props.onIconClick()
     }
 
     render() {
@@ -59,13 +69,12 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
 
         return (
             <View>
-                <Header closeIcon={true} headerContext="请登录" onPress={this.props.onIconClick}/>
+                <Header closeIcon={true} headerContext="请登录" onPress={this.onClose}/>
                 <View style={styles.content}>
                     <View>
                         <Image style={styles.icon} source={require('./images/logo.png')}/>
                     </View>
                     <Form
-                        ref="form"
                         type={User}
                         options={options}
                         onChange={this.onChange}

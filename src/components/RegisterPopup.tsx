@@ -35,6 +35,7 @@ interface RegisterPopupProps {
     onSubmit: (username: string, password: string) => void
     onIconClick: () => void
     isActive: boolean
+    onHideTabBar: (tabBarVisible: boolean) => void
 }
 
 interface RegisterPopupStates {
@@ -61,16 +62,21 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
     onSubmit = () => {
         // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
+        this.props.onHideTabBar(true)
+    }
+
+    onClose = () => {
+        this.props.onHideTabBar(false)
+        this.props.onIconClick()
     }
 
     render() {
         return (
             <View>
-                <Header closeIcon={true} headerContext="注册" onPress={this.props.onIconClick}/>
+                <Header closeIcon={true} headerContext="注册" onPress={this.onClose}/>
                 <View style={styles.content}>
                     <Image style={styles.icon} source={require('./images/logo.png')}/>
                     <Form
-                        ref="form"
                         type={User}
                         options={options}
                         onChange={this.onChange}

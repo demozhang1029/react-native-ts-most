@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as _ from 'lodash'
 import {
   NavigationActions,
   TabNavigator,
@@ -51,17 +52,18 @@ const Route = TabNavigator({
     },
   },
   profile: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-apps' : 'ios-apps-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
-    },
+      screen: ProfileScreen,
+      navigationOptions: ({navigation}) => ({
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({tintColor, focused}) => (
+              <Ionicons
+                  name={focused ? 'ios-apps' : 'ios-apps-outline'}
+                  size={26}
+                  style={{color: tintColor}}
+              />
+          ),
+          tabBarVisible: _.get(navigation.state.params, 'tabBarVisible'),
+      }),
   },
 },                         {
   initialRouteName: 'homePage',
