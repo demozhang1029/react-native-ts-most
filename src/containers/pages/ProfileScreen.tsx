@@ -105,28 +105,43 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
         )
     }
 
+    _hideTabBar = (tabBarVisible) => {
+        const setParamsAction = NavigationActions.setParams({
+            params: { tabBarVisible },
+            key: 'profile',
+        })
+        this.props.dispatch(setParamsAction)
+    }
+
+    _renderPopup = () => {
+        if (this.state.showLogin) {
+            return (
+                <LoginPopup
+                    onSubmit={this.onLoginUser}
+                    isActive={true}
+                    goToRegister={this.goToRegister}
+                    onIconClick={this.onLoginClose}
+                    onHideTabBar={this._hideTabBar}
+                />
+            )
+        } else if (this.state.showRegister) {
+            return (
+                <RegisterPopup
+                    onSubmit={this.onRegisterUser}
+                    isActive={true}
+                    onIconClick={this.onRegisterClose}
+                    onHideTabBar={this._hideTabBar}
+                />)
+        } else {
+            return null
+        }
+}
+
     render() {
         return (
             <View>
-                {
-                    (!this.state.showLogin && !this.state.showRegister) && this._renderContent()
-                }
-                {
-                    this.state.showLogin
-                        ? <LoginPopup
-                            onSubmit={this.onLoginUser}
-                            isActive={true}
-                            goToRegister={this.goToRegister}
-                            onIconClick={this.onLoginClose}
-                        />
-                        : this.state.showRegister
-                        ? <RegisterPopup
-                            onSubmit={this.onRegisterUser}
-                            isActive={true}
-                            onIconClick={this.onRegisterClose}
-                        />
-                        : null
-                }
+                {(!this.state.showLogin && !this.state.showRegister) && this._renderContent()}
+                {this._renderPopup()}
             </View>
         )
     }
