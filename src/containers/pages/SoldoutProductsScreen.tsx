@@ -31,7 +31,7 @@ class SoldoutProductsScreen extends React.Component<ProductsProps> {
     }
 }
 
-exports default WithProductList(SoldoutProductsScreen, {
+export default WithProductList(SoldoutProductsScreen, {
     action: soldProductsAction,
     stateName: 'soldProducts'
 })

@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import { StyleSheet, ScrollView } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import { User, ProductDetail } from '../../definitions'
-import { Product } from '../../components/Product'
+import { Product } from '../Product'
 
 interface WithProductsListProps extends DispatchProp<void> {
     getProducts: any
@@ -16,11 +16,7 @@ interface Options {
     stateName: string
 }
 
-interface ProductsProps extends DispatchProp<void> {
-    styles: object
-}
-
-const WithProductList = (Screen: React.Component<ProductsProps>, options: Options) => {
+const WithProductList = (Screen, options: Options) => {
 
     class ProductsScreen extends React.Component<WithProductsListProps> {
         constructor(props: WithProductsListProps) {
