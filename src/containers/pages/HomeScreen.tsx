@@ -20,12 +20,13 @@ interface HomePageState {
 	showLogin: boolean;
 	showRegister: boolean;
 	showHeader: boolean;
+	productDetail: object;
 }
 
 export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 	constructor(props) {
 		super(props);
-		this.state = {showLogin: false, showRegister: false, showHeader: true};
+		this.state = {showLogin: false, showRegister: false, showHeader: true, productDetail: {}};
 	}
 
 	componentDidMount() {
@@ -40,15 +41,14 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 		this.setState({showLogin: false, showRegister: false, showHeader: true});
 	}
 
-	displayProductDetailPage(index) {
-
+	displayProductDetailPage() {
 	}
 
 	selectProduct(index) {
 		if (!this.props.isLogin) {
 			this.switchToLoginOrRegister(true);
 		} else {
-			this.displayProductDetailPage(index);
+			this.setState({productDetail: _.get(this.props.products, index)})
 		}
 	}
 
@@ -100,6 +100,7 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 				{
 					this.displayLoginPage(showLogin) ||
 					this.displayRegisterPage(showRegister) ||
+					this.displayProductDetailPage() ||
 					this.displaySelectedProductPage()
 				}
 			</View>
