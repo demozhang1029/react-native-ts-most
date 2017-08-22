@@ -41,8 +41,14 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 	}
 
 	displayProductDetailPage(index) {
+
+	}
+
+	selectProduct(index) {
 		if (!this.props.isLogin) {
 			this.switchToLoginOrRegister(true);
+		} else {
+			this.displayProductDetailPage(index);
 		}
 	}
 
@@ -78,7 +84,7 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 							price={product.price}
 							owner={product.owner}
 							key={index}
-							onClick={() => this.displayProductDetailPage(index)}
+							onClick={() => this.selectProduct(index)}
 						/>
 					})
 				}
