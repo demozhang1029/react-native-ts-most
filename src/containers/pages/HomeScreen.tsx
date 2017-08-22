@@ -7,14 +7,16 @@ import * as D from '../../definitions';
 import {Product} from "../../components/Product";
 import {Header} from "../../components/Header";
 import {getHomeProducts} from "../../modules/home/actions";
+import {NavigationActions} from "react-navigation";
 
-interface HomePageProps extends DispatchProp<void> {
+interface HomeProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
 	products: D.ProductDetail[];
 	isLogin: boolean;
+	navigate: typeof NavigationActions.navigate;
 }
 
-export class HomePageScreen extends React.Component<HomePageProps> {
+export class HomeScreen extends React.Component<HomeProps> {
 	constructor(props) {
 		super(props);
 	}
@@ -23,19 +25,36 @@ export class HomePageScreen extends React.Component<HomePageProps> {
 		this.props.getHomeProducts();
 	}
 
-	showProductDetail(index) {
-		if (!this.props.isLogin) {
+	onLogin() {
 
-		}
+	}
+
+	goToRegister() {
+
+	}
+
+	showProductDetail(index) {
+		// if (!this.props.isLogin) {
+			this.props.navigate({
+				routeName: 'LoginPopup',
+				params: {
+					onSubmit: this.onLogin,
+					goToRegister: this.goToRegister,
+					onIconClick: () => {},
+					onHideTabBar: () => {}
+				},
+			});
+		// }
 	}
 
 	render() {
+		const {products} = this.props;
 		return (
 			<View style={styles.container}>
 				<Header headerContext="精选"/>
 				<ScrollView style={styles.view}>
 					{
-						this.props.products.map((product, index) => {
+						products.map((product, index) => {
 							return <Product
 								title={product.name}
 								img={product.img}
@@ -66,9 +85,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	getHomeProducts: () => dispatch(getHomeProducts()),
+	navigate: (params) => dispatch(NavigationActions.navigate(params)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePageScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
 	container: {

@@ -6,13 +6,13 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import HomePageScreen from '../containers/pages/HomePageScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
+import {homePage} from "./homePage";
 
 const Route = TabNavigator({
   homePage: {
-	  screen: HomePageScreen,
+	  screen: homePage,
 	  navigationOptions: {
 		  tabBarLabel: '精选',
 		  tabBarIcon: ({ tintColor, focused }) => (
