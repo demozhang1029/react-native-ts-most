@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native';
 import Price from "./Price";
 import User from "./User";
 
@@ -8,17 +8,22 @@ interface ProductProps {
 	img: string;
 	price: string;
 	owner?: string;
+	onClick: () => void;
 }
 
 export const Product = (props: ProductProps) => {
 	return (
-		<View style={styles.container}>
-			<Image source={{uri: props.img}} style={styles.img}/>
-			<View style={styles.info}>
-				<Text style={styles.text}>{props.title}</Text>
-				<Price price={props.price}/>
-				<User name={props.owner}/>
-			</View>
+		<View>
+			<TouchableHighlight underlayColor={'transparent'} onPress={props.onClick}>
+				<View style={styles.container}>
+					<Image source={{uri: props.img}} style={styles.img}/>
+					<View style={styles.info}>
+						<Text style={styles.text}>{props.title}</Text>
+						<Price price={props.price}/>
+						<User name={props.owner}/>
+					</View>
+				</View>
+			</TouchableHighlight>
 		</View>
 	);
 };

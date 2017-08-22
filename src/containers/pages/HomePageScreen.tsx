@@ -11,15 +11,22 @@ import {getHomeProducts} from "../../modules/home/actions";
 interface HomePageProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
 	products: D.ProductDetail[];
+	isLogin: boolean;
 }
 
-class HomePageScreen extends React.Component<HomePageProps> {
+export class HomePageScreen extends React.Component<HomePageProps> {
 	constructor(props) {
 		super(props);
 	}
 
 	componentDidMount() {
 		this.props.getHomeProducts();
+	}
+
+	showProductDetail(index) {
+		if (!this.props.isLogin) {
+
+		}
 	}
 
 	render() {
@@ -35,6 +42,7 @@ class HomePageScreen extends React.Component<HomePageProps> {
 								price={product.price}
 								owner={product.owner}
 								key={index}
+								onClick={() => this.showProductDetail(index)}
 							/>
 						})
 					}
@@ -46,6 +54,7 @@ class HomePageScreen extends React.Component<HomePageProps> {
 
 const mapStateToProps = (state) => {
 	return {
+		isLogin: !_.isEmpty(state.user.sessionToken),
 		products: _.map(state.homeProducts.products, product => ({
 			img: product.img,
 			title: product.name,
@@ -56,14 +65,13 @@ const mapStateToProps = (state) => {
 	}};
 
 const mapDispatchToProps = (dispatch) => ({
-	getHomeProducts: () => dispatch(getHomeProducts())
+	getHomeProducts: () => dispatch(getHomeProducts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageScreen);
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 50,
 		backgroundColor: '#fff',
 	},
 	view: {
