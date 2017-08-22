@@ -6,7 +6,6 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import HomeScreen from '../containers/pages/HomeScreen'
 import HomePageScreen from '../containers/pages/HomePageScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
@@ -24,19 +23,6 @@ const Route = TabNavigator({
         />
 		  ),
 	  },
-  },
-  home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
-    },
   },
   others: {
     screen: OthersScreen,
