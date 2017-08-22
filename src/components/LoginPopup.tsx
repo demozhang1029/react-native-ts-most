@@ -29,7 +29,6 @@ interface LoginPopupProps  {
     onSubmit: (username: string, password: string) => void
     goToRegister: () => void
     onIconClick: () => void
-    isActive: boolean
     onHideTabBar: (tabBarVisible: boolean) => void
 }
 

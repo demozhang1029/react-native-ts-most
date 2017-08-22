@@ -34,7 +34,6 @@ const options = {
 interface RegisterPopupProps {
     onSubmit: (username: string, password: string) => void
     onIconClick: () => void
-    isActive: boolean
     onHideTabBar: (tabBarVisible: boolean) => void
 }
 
