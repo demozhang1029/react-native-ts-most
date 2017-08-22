@@ -5,10 +5,9 @@ import {
   TabNavigator,
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
 import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
-import ProfileScreen from '../containers/pages/ProfileScreen'
+import { profilePages } from './profilePages'
 
 const Route = TabNavigator({
   homePage: {
@@ -38,7 +37,7 @@ const Route = TabNavigator({
     },
   },
   profile: {
-      screen: ProfileScreen,
+      screen: profilePages,
       navigationOptions: ({navigation}) => ({
           tabBarLabel: 'Profile',
           tabBarIcon: ({tintColor, focused}) => (

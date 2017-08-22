@@ -4,13 +4,13 @@ import { View } from 'react-native'
 import { DispatchProp } from 'react-redux'
 import { Header } from '../../components/Header'
 import WithProductList from '../../components/enhancer/WithProductList'
-import { soldProductsAction } from '../../modules/products/actions'
+import { boughtProductsAction } from '../../modules/products/actions'
 
 interface ProductsProps extends DispatchProp<void> {
     styles: object
 }
 
-class SoldoutProductsScreen extends React.Component<ProductsProps> {
+class BoughtProductsScreen extends React.Component<ProductsProps> {
     constructor(props: ProductsProps) {
         super(props)
     }
@@ -19,7 +19,7 @@ class SoldoutProductsScreen extends React.Component<ProductsProps> {
         return (
             <View style={this.props.styles}>
                 <Header
-                    headerContext="出售宝贝"
+                    headerContext="已买宝贝"
                     goBackIcon={true}
                     onPress={() => {
                         this.props.dispatch(NavigationActions.back())
@@ -31,7 +31,7 @@ class SoldoutProductsScreen extends React.Component<ProductsProps> {
     }
 }
 
-export default WithProductList(SoldoutProductsScreen, {
-    action: soldProductsAction,
-    stateName: 'soldProducts'
+export default WithProductList(BoughtProductsScreen, {
+    action: boughtProductsAction,
+    stateName: 'boughtProducts'
 })

@@ -1,21 +1,23 @@
 import { fromPromise } from 'most'
-import { select, Epic } from 'redux-most'
+import * as _ from 'lodash'
+import { Epic, select } from 'redux-most'
 import {
-    USER_LOGIN,
-    USER_LOGIN_SUC,
-    USER_LOGIN_FAIL,
-    USER_LOGOUT,
-    USER_LOGOUT_SUC,
-    USER_LOGOUT_FAIL,
-    USER_REGISTER,
-    USER_REGISTER_SUC,
-    USER_REGISTER_FAIL,
     GeneralAction,
-    UserForLogin,
-    UserAction,
     User,
+    USER_LOGIN,
+    USER_LOGIN_FAIL,
+    USER_LOGIN_SUC,
+    USER_LOGOUT,
+    USER_LOGOUT_FAIL,
+    USER_LOGOUT_SUC,
+    USER_REGISTER,
+    USER_REGISTER_FAIL,
+    USER_REGISTER_SUC,
+    UserAction,
+    UserForLogin,
 } from '../../definitions'
 import { login, logout, register } from '../../apis/user'
+import { NavigationActions } from 'react-navigation'
 
 export const userLogin = (user: UserForLogin): UserAction => ({ type: USER_LOGIN, payload: user })
 export const userLogout = (user: User): UserAction => ({ type: USER_LOGOUT, payload: user })
@@ -37,13 +39,18 @@ const logoutEpic: Epic<GeneralAction> = (action$) => action$.thru(select(USER_LO
             : {type: USER_LOGOUT_FAIL}
     ))
 
-const registerEpic: Epic<GeneralAction> = (action$) => action$.thru(select(USER_REGISTER))
-    .chain((action: UserAction) => fromPromise(register((action.payload as UserForLogin))))
-    .map((registerResponse: null | User) => (
-        registerResponse
-            ? {type: USER_REGISTER_SUC, payload: registerResponse}
-            : {type: USER_REGISTER_FAIL}
-    ))
+const registerEpic: Epic<GeneralAction> = (action$, store) => {
+    return action$.thru(select(USER_REGISTER))
+        .chain((action: UserAction) => fromPromise(register((action.payload as UserForLogin))))
+        .map((registerResponse: null | User) => {
+            if (!_.isEmpty(registerResponse)) {
+                store.dispatch(NavigationActions.back())
+                return {type: USER_REGISTER_SUC, payload: registerResponse}
+            } else {
+                return {type: USER_REGISTER_FAIL}
+            }
+        })
+}
 
 export const epics: Array<Epic<GeneralAction>> = [
     loginEpic,

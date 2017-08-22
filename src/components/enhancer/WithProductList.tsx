@@ -49,8 +49,10 @@ const WithProductList = (Screen, options: Options) => {
     }
 
     const mapStateToProps = (state) => {
+        console.log('options.stateName', options.stateName)
+        console.log('products', state[options.stateName])
         return {
-            products: _.map(state[options.stateName].products, product => ({
+            products: _.map(_.get(state[options.stateName], 'products'), product => ({
                 img: product.img,
                 title: product.name,
                 price: product.price,
