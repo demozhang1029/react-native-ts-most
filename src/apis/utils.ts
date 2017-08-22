@@ -2,7 +2,7 @@ export const fetchJson = (url, option) => fetch(url, {
     ...option,
     headers: {
       ...option.headers,
-      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Type': 'application/json;',
     },
   })
   .then(response => {
@@ -12,8 +12,8 @@ export const fetchJson = (url, option) => fetch(url, {
     throw response
   })
 
-export const headerWithSessionToken = (sessionToken: string): Headers => {
-    let header = new Headers()
-    header.append('sessionToken', sessionToken)
-    return header
+export const headerWithSessionToken = (sessionToken: string) => {
+   return {
+       sessionToken: sessionToken
+   }
 }
