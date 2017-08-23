@@ -84,13 +84,13 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                     <ButtonWithColor
                         title="已买宝贝"
                         onPress={() => {
-                            this.props.dispatch(NavigationActions.navigate({routeName: 'bought-products'}))
+                            this.props.dispatch(NavigationActions.navigate({routeName: 'boughtProducts'}))
                         }}
                     />
                     <ButtonWithColor
                         title="出售宝贝"
                         onPress={() => {
-                            this.props.dispatch(NavigationActions.navigate({routeName: 'sold-out'}))
+                            this.props.dispatch(NavigationActions.navigate({routeName: 'soldoutProducts'}))
                         }}
                     />
                     <ButtonWithColor

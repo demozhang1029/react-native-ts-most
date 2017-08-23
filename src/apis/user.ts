@@ -11,13 +11,19 @@ export const login = (user: UserForLogin): Promise<User> => {
             username: user.username,
             password: user.password
         }),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
     })
 }
 
 export const logout = (sessionToken: string): Promise<User> => {
     return fetchJson('http://secondhand.leanapp.cn/users/logout', {
         method: 'GET',
-        headers: headerWithSessionToken(sessionToken),
+        headers: {
+            ...headerWithSessionToken(sessionToken),
+            'Content-Type': 'application/json; charset=utf-8',
+        },
     })
 }
 
