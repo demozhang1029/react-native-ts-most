@@ -141,4 +141,6 @@ export interface RootState {
     app?: AppState
     homeProducts?: HomeProductsState
     nav?: {}
+    boughtProducts?: ProductsState
+    soldProducts?: ProductsState
 }
