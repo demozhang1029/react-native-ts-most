@@ -29,7 +29,7 @@ interface LoginPopupProps  {
     onSubmit: (username: string, password: string) => void
     goToRegister: () => void
     onIconClick: () => void
-    onHideTabBar: (tabBarVisible: boolean) => void
+    onHideTabBar: () => void
 }
 
 interface LoginPopupStates {
@@ -45,7 +45,6 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
     }
 
     componentDidMount() {
-        this.props.onHideTabBar(false)
     }
 
     onChange = (user: UserForLogin) => {
@@ -53,7 +52,7 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
     }
 
     onSubmit = () => {
-        this.props.onHideTabBar(true)
+        this.props.onHideTabBar()
         // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
     }
