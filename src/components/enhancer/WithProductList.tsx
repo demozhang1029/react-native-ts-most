@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { StyleSheet, ScrollView } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import { User, ProductDetail } from '../../definitions'
 import { Product } from '../Product'
 
@@ -9,6 +10,7 @@ interface WithProductsListProps extends DispatchProp<void> {
     getProducts: any
     products: ProductDetail[],
     user: User
+    goBack: () => void
 }
 
 interface Options {
@@ -29,7 +31,7 @@ const WithProductList = (Screen, options: Options) => {
 
         render() {
             return (
-                <Screen styles={styles.container}>
+                <Screen styles={styles.container} onBackButton={this.props.goBack}>
                     <ScrollView style={styles.view}>
                         {
                             this.props.products.map((product, index) => {
@@ -62,7 +64,8 @@ const WithProductList = (Screen, options: Options) => {
     }
 
     const mapDispatchToProps = (dispatch) => ({
-        getProducts: (user: User) => dispatch(options.action(user))
+        getProducts: (user: User) => dispatch(options.action(user)),
+        goBack: () => dispatch(NavigationActions.back())
     })
 
     return connect(mapStateToProps, mapDispatchToProps)(ProductsScreen)

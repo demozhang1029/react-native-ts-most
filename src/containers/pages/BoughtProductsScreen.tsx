@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { NavigationActions } from 'react-navigation'
 import { View } from 'react-native'
 import { DispatchProp } from 'react-redux'
 import { Header } from '../../components/Header'
@@ -8,6 +7,7 @@ import { boughtProductsAction } from '../../modules/products/actions'
 
 interface ProductsProps extends DispatchProp<void> {
     styles: object
+    onBackButton: () => void
 }
 
 class BoughtProductsScreen extends React.Component<ProductsProps> {
@@ -21,9 +21,7 @@ class BoughtProductsScreen extends React.Component<ProductsProps> {
                 <Header
                     headerContext="已买宝贝"
                     goBackIcon={true}
-                    onPress={() => {
-                        this.props.dispatch(NavigationActions.back())
-                    }}
+                    onPress={this.props.onBackButton}
                 />
                 {this.props.children}
             </View>
