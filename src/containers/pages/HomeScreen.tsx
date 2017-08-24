@@ -9,6 +9,7 @@ import {Header} from "../../components/Header";
 import {getHomeProducts} from "../../modules/home/actions";
 import {LoginPopup} from "../../components/LoginPopup";
 import {RegisterPopup} from "../../components/RegisterPopup";
+import {ProductDetailPopup} from "../../components/ProductDetailPopup";
 
 interface HomePageProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
@@ -20,13 +21,13 @@ interface HomePageState {
 	showLogin: boolean;
 	showRegister: boolean;
 	showHeader: boolean;
-	productDetail: object;
+	displayProductIndex?: number;
 }
 
 export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 	constructor(props) {
 		super(props);
-		this.state = {showLogin: false, showRegister: false, showHeader: true, productDetail: {}};
+		this.state = {showLogin: false, showRegister: false, showHeader: true, displayProductIndex: undefined};
 	}
 
 	componentDidMount() {
@@ -42,13 +43,21 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 	}
 
 	displayProductDetailPage() {
+		const {displayProductIndex} = this.state;
+		if (!_.isUndefined(displayProductIndex)) {
+			const product = _.get(this.props.products, displayProductIndex);
+			return <ProductDetailPopup
+				{...product}
+				onClick={() => {}}
+			/>
+		}
 	}
 
-	selectProduct(index) {
+	selectProduct(selectedIndex) {
 		if (!this.props.isLogin) {
 			this.switchToLoginOrRegister(true);
 		} else {
-			this.setState({productDetail: _.get(this.props.products, index)})
+			this.setState({displayProductIndex: selectedIndex})
 		}
 	}
 

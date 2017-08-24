@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, Text} from 'react-native';
 import Price from "./Price";
 import User from "./User";
 import {ButtonWithColor} from "./ButtonWithColor";
@@ -13,21 +13,21 @@ interface ProductProps {
 	onClick: () => void;
 }
 
-export const ProductDetail = (props: ProductProps) => {
+export const ProductDetailPopup = (props: ProductProps) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.img}>
 				<Image source={{uri: props.img}}/>
 			</View>
 			<View style={styles.info}>
-				<View style={styles.left}>{props.title}</View>
+				<Text style={styles.left}>{props.title}</Text>
 				<View style={styles.right}>
 					<Price price={props.price} />
 					<User name={props.owner} />
 				</View>
 			</View>
 			<View style={styles.detail}>{props.details.split('\n').map((detail, index) => {
-				return <div key={index}>{detail}</div>;
+				return <Text key={index}>{detail}</Text>;
 			})}</View>
 			<ButtonWithColor title="立即购买" onPress={props.onClick}/>
 		</View>
@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 	},
 	info: {
-		width: 150,
-		fontSize: 20,
-		alignItems: 'center',
-		marginTop: 10,
 	},
 	left: {
 		marginLeft: '10%',
@@ -61,6 +57,5 @@ const styles = StyleSheet.create({
 	detail: {
 		marginTop: 20,
 		marginBottom: 50,
-		textAlign: 'left'
 	}
 });
