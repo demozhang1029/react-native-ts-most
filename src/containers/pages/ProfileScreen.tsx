@@ -13,7 +13,8 @@ import { LoginPopup } from '../../components/LoginPopup'
 import { RegisterPopup } from '../../components/RegisterPopup'
 
 export type ProfileProps = DispatchProp<void> & {
-    user: D.User
+    user: D.User,
+    logined: boolean
 }
 
 interface ProfileStates {
@@ -25,7 +26,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
     constructor(props: ProfileProps) {
         super(props)
         this.state = {
-            showLogin: true,
+            showLogin: !this.props.logined,
             showRegister: false
         }
     }
@@ -50,6 +51,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                 showRegister: false,
             })
         }
+        this._hideTabBar()
     }
 
     onRegisterClose = () => {
@@ -105,7 +107,8 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
         )
     }
 
-    _hideTabBar = (tabBarVisible) => {
+    _hideTabBar = () => {
+        const tabBarVisible = this.props.logined
         const setParamsAction = NavigationActions.setParams({
             params: { tabBarVisible },
             key: 'profile',
@@ -118,7 +121,6 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
             return (
                 <LoginPopup
                     onSubmit={this.onLoginUser}
-                    isActive={true}
                     goToRegister={this.goToRegister}
                     onIconClick={this.onLoginClose}
                     onHideTabBar={this._hideTabBar}
@@ -128,7 +130,6 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
             return (
                 <RegisterPopup
                     onSubmit={this.onRegisterUser}
-                    isActive={true}
                     onIconClick={this.onRegisterClose}
                     onHideTabBar={this._hideTabBar}
                 />)
@@ -150,6 +151,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
 export default connect(
     state => ({
         user: state.user,
+        logined: state.app.logined,
     })
 )(ProfileScreen)
 

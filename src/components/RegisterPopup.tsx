@@ -34,7 +34,7 @@ const options = {
 interface RegisterPopupProps {
     onSubmit: (username: string, password: string) => void
     onIconClick: () => void
-    onHideTabBar: (tabBarVisible: boolean) => void
+    onHideTabBar: () => void
 }
 
 interface RegisterPopupStates {
@@ -61,11 +61,11 @@ export class RegisterPopup extends React.Component<RegisterPopupProps, RegisterP
     onSubmit = () => {
         // TODO: Add validate
         this.props.onSubmit(this.state.username, this.state.password)
-        this.props.onHideTabBar(true)
+        this.props.onHideTabBar()
     }
 
     onClose = () => {
-        this.props.onHideTabBar(false)
+        this.props.onHideTabBar()
         this.props.onIconClick()
     }
 

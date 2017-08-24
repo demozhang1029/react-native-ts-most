@@ -9,5 +9,5 @@ export default {
     app,
     user,
     homeProducts,
-    products,
+    ...products,
 }
