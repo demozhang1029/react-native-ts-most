@@ -33,10 +33,12 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
 
     componentDidMount() {
         this._showOrHideoginPopup(this.props.user.username)
+        this._hideTabBar(this.props)
     }
 
     componentWillReceiveProps(nextProps: ProfileProps) {
         this._showOrHideoginPopup(nextProps.user.username)
+        this._hideTabBar(nextProps)
     }
 
     _showOrHideoginPopup = (username: string) => {
@@ -51,7 +53,6 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                 showRegister: false,
             })
         }
-        this._hideTabBar()
     }
 
     onRegisterClose = () => {
@@ -107,8 +108,8 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
         )
     }
 
-    _hideTabBar = () => {
-        const tabBarVisible = this.props.logined
+    _hideTabBar = (props) => {
+        const tabBarVisible = props.logined
         const setParamsAction = NavigationActions.setParams({
             params: { tabBarVisible },
             key: 'profile',
@@ -123,7 +124,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                     onSubmit={this.onLoginUser}
                     goToRegister={this.goToRegister}
                     onIconClick={this.onLoginClose}
-                    onHideTabBar={this._hideTabBar}
+                    onHideTabBar={this._hideTabBar.bind(this, this.props)}
                 />
             )
         } else if (this.state.showRegister) {
@@ -131,7 +132,7 @@ class ProfileScreen extends React.Component<ProfileProps, ProfileStates> {
                 <RegisterPopup
                     onSubmit={this.onRegisterUser}
                     onIconClick={this.onRegisterClose}
-                    onHideTabBar={this._hideTabBar}
+                    onHideTabBar={this._hideTabBar.bind(this, this.props)}
                 />)
         } else {
             return null
