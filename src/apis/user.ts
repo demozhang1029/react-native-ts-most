@@ -34,5 +34,8 @@ export const register = (user: UserForLogin): Promise<User> => {
             username: user.username,
             password: user.password
         }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }
