@@ -1,29 +1,9 @@
 import * as React from 'react'
 import { StyleSheet, View, Image, Dimensions } from 'react-native'
 import KeyboardSpace from 'react-native-keyboard-space'
-import * as t from 'tcomb-form-native'
-const Form = t.form.Form
 import { Header } from './Header'
 import { ButtonWithColor } from './ButtonWithColor'
-import { UserForLogin } from '../definitions'
-
-const User = t.struct({username: t.String, password: t.String})
-const options = {
-    fields: {
-        username: {
-            placeholder: '用户名',
-            auto: 'none',
-            keyboardType: 'name-phone-pad'
-        },
-        password: {
-            placeholder: '密码',
-            auto: 'none',
-            password: true,
-            secureTextEntry: true,
-            maxLength: 12
-        }
-    }
-}
+import { Input } from './Input'
 
 interface LoginPopupProps  {
     onSubmit: (username: string, password: string) => void
@@ -42,13 +22,6 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
     constructor(props: LoginPopupProps) {
         super(props)
         this.state = {}
-    }
-
-    componentDidMount() {
-    }
-
-    onChange = (user: UserForLogin) => {
-        this.setState({...user})
     }
 
     onSubmit = () => {
@@ -72,21 +45,29 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
                     <View>
                         <Image style={styles.icon} source={require('./images/logo.png')}/>
                     </View>
-                    <Form
-                        type={User}
-                        options={options}
-                        onChange={this.onChange}
-                        value={this.state}
-                    />
-                    <ButtonWithColor
-                        title="登陆"
-                        isGreyButton={!isLoginBtnEnabled}
-                        onPress={this.onSubmit}
-                    />
-                    <ButtonWithColor
-                        title="免费注册"
-                        onPress={this.props.goToRegister}
-                    />
+                    <View style={styles.form}>
+                        <Input
+                            mask={false}
+                            placeholder="用户名"
+                            autoCapitalize={'none'}
+                            onChangeText={(text) => {this.setState({username: text})}}
+                        />
+                        <Input
+                            mask={true}
+                            placeholder="密码"
+                            autoCapitalize={'none'}
+                            onChangeText={(text) => {this.setState({password: text})}}
+                        />
+                        <ButtonWithColor
+                            title="登陆"
+                            isGreyButton={!isLoginBtnEnabled}
+                            onPress={this.onSubmit}
+                        />
+                        <ButtonWithColor
+                            title="免费注册"
+                            onPress={this.props.goToRegister}
+                        />
+                    </View>
                     <KeyboardSpace/>
                 </View>
             </View>
@@ -96,12 +77,20 @@ export class LoginPopup extends React.Component<LoginPopupProps, LoginPopupState
 
 const styles = StyleSheet.create({
     icon: {
-        height: 150,
+        height: 120,
         resizeMode: 'contain',
     },
     content: {
+        paddingTop: 20,
         height: Dimensions.get('window').height - 64 - 44,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
+    form: {
+        height: Dimensions.get('window').height - 64 - 44 - 120,
+        paddingLeft: 50,
+        paddingRight: 50,
+        justifyContent: 'space-around',
+        flexDirection: 'column',
+    }
 })

@@ -23,11 +23,9 @@ const styles = StyleSheet.create({
         height: 30,
         borderBottomColor: '#979797',
         borderBottomWidth: 1,
-        flexDirection: 'row',
     },
     text: {
-        fontSize: 15,
         textAlign: 'left',
-        paddingLeft: 10
+        paddingLeft: 10,
     }
 })
