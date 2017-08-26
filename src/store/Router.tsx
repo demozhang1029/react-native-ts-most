@@ -6,34 +6,35 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeScreen from '../containers/pages/HomeScreen'
-import OthersScreen from '../containers/pages/OthersScreen'
+import PublishProductScreen from '../containers/pages/PublishProductScreen'
 import { profilePages } from './profilePages'
 
 const Route = TabNavigator({
   homePage: {
 	  screen: HomeScreen,
 	  navigationOptions: {
-		  tabBarLabel: '精选',
+	      tabBarLabel: '精选',
 		  tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
+            <Ionicons
+              name={focused ? 'ios-home' : 'ios-home-outline'}
+              size={26}
+              style={{ color: tintColor }}
+            />
 		  ),
 	  },
   },
   others: {
-    screen: OthersScreen,
+    screen: PublishProductScreen,
     navigationOptions: {
-      tabBarLabel: 'Others',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-settings' : 'ios-settings-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+        tabBarLabel: 'Others',
+        tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons
+              name={focused ? 'ios-settings' : 'ios-settings-outline'}
+              size={26}
+              style={{ color: tintColor }}
+            />
+        ),
+        tabBarVisible: false,
     },
   },
   profile: {
