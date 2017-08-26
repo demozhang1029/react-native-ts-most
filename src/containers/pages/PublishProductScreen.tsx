@@ -55,6 +55,7 @@ class PublishProductScreen extends React.Component<PublishProductScreenPageProps
             img: this.props.currentImageUrl
         }
         this.props.dispatch(publishProduct(this.props.user, product))
+        this.props.dispatch(NavigationActions.navigate({routeName: 'homePage'}))
     }
 
     _showOrHideoginPopup = (username: string) => {
