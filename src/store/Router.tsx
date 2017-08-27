@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Image } from 'react-native'
 import * as _ from 'lodash'
 import {
   NavigationActions,
@@ -6,55 +7,57 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeScreen from '../containers/pages/HomeScreen'
-import OthersScreen from '../containers/pages/OthersScreen'
+import PublishProductScreen from '../containers/pages/PublishProductScreen'
 import { profilePages } from './profilePages'
 
 const Route = TabNavigator({
-  homePage: {
-	  screen: HomeScreen,
-	  navigationOptions: {
-		  tabBarLabel: '精选',
-		  tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-		  ),
-	  },
-  },
-  others: {
-    screen: OthersScreen,
-    navigationOptions: {
-      tabBarLabel: 'Others',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-settings' : 'ios-settings-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+    homePage: {
+        screen: HomeScreen,
+        navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={require('../components/images/home.png')}
+                    style={{width: 26, height: 26, tintColor: tintColor}}
+                />
+            ),
+        },
     },
-  },
-  profile: {
-      screen: profilePages,
-      navigationOptions: ({navigation}) => ({
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({tintColor, focused}) => (
-              <Ionicons
-                  name={focused ? 'ios-apps' : 'ios-apps-outline'}
-                  size={26}
-                  style={{color: tintColor}}
-              />
-          ),
-          tabBarVisible: _.get(navigation.state.params, 'tabBarVisible'),
-      }),
-  },
-},                         {
-  initialRouteName: 'homePage',
-  tabBarPosition: 'bottom',
-  animationEnabled: true,
-  swipeEnabled: true,
+    others: {
+        screen: PublishProductScreen,
+        navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={require('../components/images/plus.png')}
+                    style={{width: 26, height: 26, tintColor: tintColor}}
+                />
+            ),
+            tabBarVisible: false,
+        },
+    },
+    profile: {
+        screen: profilePages,
+        navigationOptions: ({navigation}) => ({
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={require('../components/images/person.png')}
+                    style={{width: 26, height: 26, tintColor: tintColor}}
+                />
+            ),
+            tabBarVisible: _.get(navigation.state.params, 'tabBarVisible'),
+        }),
+    },
+}, {
+    initialRouteName: 'homePage',
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+        activeTintColor: 'black',
+        activeBackgroundColor: 'white',
+        inactiveTintColor: 'black',
+        inactiveBackgroundColor: '#FFEB3B',
+        showLabel: false,
+    },
 })
 
 const initialRouterAction = NavigationActions.init()

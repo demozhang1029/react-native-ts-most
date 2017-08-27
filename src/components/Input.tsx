@@ -21,14 +21,11 @@ export const Input = (props: InputProps) => {
 const styles = StyleSheet.create({
     input: {
         height: 30,
-        borderBottomColor: 'black',
+        borderBottomColor: '#979797',
         borderBottomWidth: 1,
-        flexDirection: 'row',
-        backgroundColor: 'red'
     },
     text: {
-        fontSize: 15,
         textAlign: 'left',
-        paddingLeft: 10
+        paddingLeft: 10,
     }
 })

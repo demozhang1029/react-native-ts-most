@@ -143,4 +143,5 @@ export interface RootState {
     nav?: {}
     boughtProducts?: ProductsState
     soldProducts?: ProductsState
+    publishProducts?: PublishProductsState
 }
