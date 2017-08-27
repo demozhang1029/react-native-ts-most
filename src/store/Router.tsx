@@ -10,52 +10,57 @@ import PublishProductScreen from '../containers/pages/PublishProductScreen'
 import { profilePages } from './profilePages'
 
 const Route = TabNavigator({
-  homePage: {
-	  screen: HomeScreen,
-	  navigationOptions: {
-	      tabBarLabel: '精选',
-		  tabBarIcon: ({ tintColor, focused }) => (
-            <Ionicons
-              name={focused ? 'ios-home' : 'ios-home-outline'}
-              size={26}
-              style={{ color: tintColor }}
-            />
-		  ),
-	  },
-  },
-  others: {
-    screen: PublishProductScreen,
-    navigationOptions: {
-        tabBarLabel: 'Others',
-        tabBarIcon: ({ tintColor, focused }) => (
-            <Ionicons
-              name={focused ? 'ios-settings' : 'ios-settings-outline'}
-              size={26}
-              style={{ color: tintColor }}
-            />
-        ),
-        tabBarVisible: false,
+    homePage: {
+        screen: HomeScreen,
+        navigationOptions: {
+            tabBarLabel: '精选',
+            tabBarIcon: ({tintColor, focused}) => (
+                <Ionicons
+                    name={'ios-home-outline'}
+                    size={26}
+                    style={{color: tintColor}}
+                />
+            ),
+        },
     },
-  },
-  profile: {
-      screen: profilePages,
-      navigationOptions: ({navigation}) => ({
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({tintColor, focused}) => (
-              <Ionicons
-                  name={focused ? 'ios-apps' : 'ios-apps-outline'}
-                  size={26}
-                  style={{color: tintColor}}
-              />
-          ),
-          tabBarVisible: _.get(navigation.state.params, 'tabBarVisible'),
-      }),
-  },
-},                         {
-  initialRouteName: 'homePage',
-  tabBarPosition: 'bottom',
-  animationEnabled: true,
-  swipeEnabled: true,
+    others: {
+        screen: PublishProductScreen,
+        navigationOptions: {
+            tabBarLabel: 'Upload',
+            tabBarIcon: ({tintColor, focused}) => (
+                <Ionicons
+                    name={'ios-add-circle-outline'}
+                    size={26}
+                    style={{color: tintColor}}
+                />
+            ),
+            tabBarVisible: false,
+        },
+    },
+    profile: {
+        screen: profilePages,
+        navigationOptions: ({navigation}) => ({
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({tintColor, focused}) => (
+                <Ionicons
+                    name={'ios-person-outline'}
+                    size={26}
+                    style={{color: tintColor}}
+                />
+            ),
+            tabBarVisible: _.get(navigation.state.params, 'tabBarVisible'),
+        }),
+    },
+}, {
+    initialRouteName: 'homePage',
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+        activeTintColor: 'black',
+        activeBackgroundColor: 'white',
+        inactiveBackgroundColor: '#FFEB3B',
+    }
 })
 
 const initialRouterAction = NavigationActions.init()

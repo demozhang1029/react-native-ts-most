@@ -25,6 +25,10 @@ const profilePages = StackNavigator({
             headerTintColor: 'white',
         },
     }
+}, {
+    cardStyle: {
+        backgroundColor: 'white'
+    }
 })
 
 export {
