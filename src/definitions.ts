@@ -29,6 +29,7 @@ export interface CreatedUser {
 }
 
 export interface Product {
+	  objectId: string,
     img: string
     name: string
     price: string
@@ -38,6 +39,7 @@ export interface Product {
 }
 
 export interface ProductDetail {
+	objectId: string,
 	img: string
 	name: string
 	price: string

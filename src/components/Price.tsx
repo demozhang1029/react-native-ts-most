@@ -7,7 +7,7 @@ interface PriceProps {
 
 export default (props: PriceProps) => (
 	<View style={styles.container}>
-		<Text style={styles.text}>{props.price}</Text>
+		<Text style={styles.text}>{'$' + props.price}</Text>
 	</View>
 );
 
