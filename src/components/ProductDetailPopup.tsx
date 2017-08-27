@@ -16,20 +16,20 @@ interface ProductProps {
 export const ProductDetailPopup = (props: ProductProps) => {
 	return (
 		<View style={styles.container}>
-			<View style={styles.img}>
-				<Image source={{uri: props.img}}/>
-			</View>
+			<Image style={styles.img} source={{uri: props.img}}/>
 			<View style={styles.info}>
 				<Text style={styles.left}>{props.title}</Text>
 				<View style={styles.right}>
-					<Price price={props.price} />
-					<User name={props.owner} />
+					<Price price={props.price}/>
+					<User name={props.owner}/>
 				</View>
 			</View>
-			<View style={styles.detail}>{props.details.split('\n').map((detail, index) => {
-				return <Text key={index}>{detail}</Text>;
-			})}</View>
-			<ButtonWithColor title="立即购买" onPress={props.onClick}/>
+			<View style={styles.detail}>
+				{props.details.split('\n').map((detail, index) => {
+					return <Text key={index}>{detail}</Text>;
+				})}
+			</View>
+			<ButtonWithColor style={styles.button} title="立即购买" onPress={props.onClick}/>
 		</View>
 	);
 };
@@ -37,25 +37,35 @@ export const ProductDetailPopup = (props: ProductProps) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'row',
+		flexDirection: 'column',
 		justifyContent: 'space-between',
-		paddingBottom: 20,
+		marginLeft: 20,
+		marginRight: 20,
+		marginBottom: 20,
 	},
 	img: {
+		width: 280,
 		height: 200,
-		marginTop: 20,
 		marginBottom: 20,
 	},
 	info: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginBottom: 50,
 	},
 	left: {
-		marginLeft: '10%',
+		fontWeight: 'bold',
+		fontSize: 30,
+		height: 60,
+		textAlign: 'left',
 	},
 	right: {
-		marginLeft: '10%',
+		flexDirection: 'column',
 	},
 	detail: {
-		marginTop: 20,
 		marginBottom: 50,
+	},
+	button: {
+		alignItems: 'center'
 	}
 });
