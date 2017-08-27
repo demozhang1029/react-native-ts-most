@@ -15,6 +15,7 @@ interface HomePageProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
 	products: D.ProductDetail[];
 	isLogin: boolean;
+	user: D.User;
 }
 
 interface HomePageState {
@@ -42,13 +43,17 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 		this.setState({showLogin: false, showRegister: false, showHeader: true});
 	}
 
+	buyProduct(product) {
+
+	}
+
 	displayProductDetailPage() {
 		const {displayProductIndex} = this.state;
 		if (!_.isUndefined(displayProductIndex)) {
 			const product = _.get(this.props.products, displayProductIndex);
 			return <ProductDetailPopup
 				{...product}
-				onClick={() => {}}
+				onClick={() => this.buyProduct(product)}
 			/>
 		}
 	}
@@ -134,7 +139,9 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 const mapStateToProps = (state) => {
 	return {
 		isLogin: state.app.logined,
+		user: state.user,
 		products: _.map(state.homeProducts.products, product => ({
+			objectId: product.objectId,
 			img: product.img,
 			title: product.name,
 			price: product.price,
