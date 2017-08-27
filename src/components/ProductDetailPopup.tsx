@@ -11,6 +11,7 @@ interface ProductProps {
 	owner: string;
 	details: string;
 	onClick: () => void;
+	onBack: () => void;
 }
 
 export const ProductDetailPopup = (props: ProductProps) => {
@@ -29,7 +30,7 @@ export const ProductDetailPopup = (props: ProductProps) => {
 					return <Text key={index}>{detail}</Text>;
 				})}
 			</View>
-			<ButtonWithColor style={styles.button} title="立即购买" onPress={props.onClick}/>
+			<ButtonWithColor title="立即购买" onPress={props.onClick}/>
 		</View>
 	);
 };
@@ -64,8 +65,5 @@ const styles = StyleSheet.create({
 	},
 	detail: {
 		marginBottom: 50,
-	},
-	button: {
-		alignItems: 'center'
 	}
 });

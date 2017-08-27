@@ -53,6 +53,10 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 		}
 	}
 
+	hideProductDetailPage() {
+		this.setState({displayProductIndex: undefined})
+	}
+
 	selectProduct(selectedIndex) {
 		if (!this.props.isLogin) {
 			this.switchToLoginOrRegister(true);
@@ -101,11 +105,21 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 		)
 	}
 
+	getHeader() {
+		const {displayProductIndex} = this.state;
+		const msg = _.isUndefined(displayProductIndex) ? '精选': '商品详情';
+		return <Header
+			headerContext={msg}
+			closeIcon={!_.isUndefined(displayProductIndex)}
+			onPress={() => this.hideProductDetailPage()}
+		/>
+	}
+
 	render() {
 		const {showHeader, showLogin, showRegister} = this.state;
 		return (
 			<View style={styles.container}>
-				{showHeader && <Header headerContext="精选"/>}
+				{showHeader && this.getHeader()}
 				{
 					this.displayLoginPage(showLogin) ||
 					this.displayRegisterPage(showRegister) ||
@@ -119,7 +133,7 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 
 const mapStateToProps = (state) => {
 	return {
-		isLogin: !_.isEmpty(state.user.sessionToken),
+		isLogin: state.app.logined,
 		products: _.map(state.homeProducts.products, product => ({
 			img: product.img,
 			title: product.name,
