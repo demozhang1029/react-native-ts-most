@@ -10,9 +10,12 @@ import {getHomeProducts} from "../../modules/home/actions";
 import {LoginPopup} from "../../components/LoginPopup";
 import {RegisterPopup} from "../../components/RegisterPopup";
 import {ProductDetailPopup} from "../../components/ProductDetailPopup";
+import {buyProductAction} from "../../modules/products/actions";
+import {BuyProduct} from "../../definitions";
 
 interface HomePageProps extends DispatchProp<void> {
 	getHomeProducts: typeof getHomeProducts;
+	buyProduct: typeof buyProductAction;
 	products: D.ProductDetail[];
 	isLogin: boolean;
 	user: D.User;
@@ -44,7 +47,13 @@ export class HomeScreen extends React.Component<HomePageProps, HomePageState> {
 	}
 
 	buyProduct(product) {
-
+		const {buyProduct, user} = this.props;
+		buyProduct({
+			sessionToken: user.sessionToken,
+			productId: product.objectId
+		})
+		this.hideProductDetailPage();
+		this.props.getHomeProducts();
 	}
 
 	displayProductDetailPage() {
@@ -152,6 +161,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	getHomeProducts: () => dispatch(getHomeProducts()),
+	buyProduct: (product: BuyProduct) => dispatch(buyProductAction(product))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

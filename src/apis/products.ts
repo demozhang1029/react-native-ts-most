@@ -27,6 +27,13 @@ export const homeProducts = (): Promise<Products> => {
     })
 }
 
+export const buyProduct = (sessionToken: string, productId: string) => {
+	return fetchJson(`http://secondhand.leanapp.cn/products/buy/${productId}`, {
+        method: 'PUT',
+        headers: headerWithSessionToken(sessionToken),
+    });
+}
+
 export const uploadImage = (sessionToken: string, fileData: string): Promise<string> => {
     const uri = fileData
     let uriParts = uri.split('.')

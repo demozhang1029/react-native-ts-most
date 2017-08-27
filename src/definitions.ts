@@ -13,6 +13,11 @@ export interface User {
     sessionToken: string
 }
 
+export interface BuyProduct {
+    	sessionToken: string
+    productId: string
+}
+
 export interface UserProfile {
     id: string
     email: string
@@ -77,6 +82,10 @@ export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile
 }
 
+export interface BuyProductAction extends GeneralAction {
+    payload?: BuyProduct
+}
+
 export interface ProductsAction extends GeneralAction {
     payload?: User
     success?: Products
@@ -130,6 +139,9 @@ export const USER_REGISTER_SUC = 'USER_REGISTER_SUC'
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
 export const USER_LOGOUT_FAIL = 'USER_LOGOUT_FAIL'
 export const USER_REGISTER_FAIL = 'USER_REGISTER_FAIL'
+export const BUY_PRODUCT = 'BUY_PRODUCT'
+export const BUY_PRODUCT_SUC = 'BUY_PRODUCT_SUC'
+export const BUY_PRODUCT_FAIL = 'BUY_PRODUCT_FAIL'
 
 // STATES
 export type AppState = App
